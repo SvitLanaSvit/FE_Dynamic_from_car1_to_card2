@@ -15,17 +15,17 @@
             <h2 class="mdl-card__title-text">Card 1</h2>
           </div>
           <div class="mdl-card__supporting-text">
-            <div id="draggable-element1" draggable="true" ondragstart="drag(event)">
+            <div id="draggable-element1" class="elem" draggable="true" ondragstart="drag(event)">
                 <div>
                     <p>ApproverName1"</p>
                 </div>
             </div>
-            <div id="draggable-element2" draggable="true" ondragstart="drag(event)">
+            <div id="draggable-element2" class="elem" draggable="true" ondragstart="drag(event)">
                 <div>
                     <p>ApproverName2"</p>
                 </div>
             </div>
-            <div id="draggable-element3" draggable="true" ondragstart="drag(event)">
+            <div id="draggable-element3" class="elem" draggable="true" ondragstart="drag(event)">
                 <div>
                     <p>ApproverName3"</p>
                 </div>
@@ -36,7 +36,7 @@
             <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Card 2</h2>
             </div>
-            <div class="mdl-card__supporting-text" id="card2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="mdl-card__supporting-text" id="card_2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
         </div>
     </div>
 
@@ -52,11 +52,25 @@
             ev.preventDefault();
         }
 
-        function drop(ev){
-            ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
-            ev.target.appendChild(document.getElementById(data));
+        // function drop(ev){
+        //     ev.preventDefault();
+        //     var data = ev.dataTransfer.getData("text");
+        //     ev.target.appendChild(document.getElementById(data));
+        // }
+
+    function drop(ev){
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        var target = ev.target;
+
+        // Перевірка, чи цільовий елемент має id = 'card_2'
+        if (target.id === 'card_2') {
+            // Перевірка, чи цільовий елемент не міститься в 'card1'
+            if (!target.closest("#card1")) {
+                target.appendChild(document.getElementById(data));
+            }
         }
+    }
 
     </script>
   </body>
